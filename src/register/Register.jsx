@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { app } from "../firebase/config";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { registerUser } from "../firebase/writeToDB";
 
 const auth = getAuth(app);
 
@@ -29,6 +30,7 @@ const Register = () => {
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
+        registerUser(user.uid, userCredentials.username);
         console.log("user", user);
       })
       .catch((error) => {
